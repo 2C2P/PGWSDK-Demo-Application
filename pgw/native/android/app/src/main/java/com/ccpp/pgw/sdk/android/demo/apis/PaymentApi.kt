@@ -27,6 +27,7 @@ import com.ccpp.pgw.sdk.android.demo.helper.StringHelper
 import com.ccpp.pgw.sdk.android.enums.APIResponseCode
 import com.ccpp.pgw.sdk.android.enums.InstallmentInterestTypeCode
 import com.ccpp.pgw.sdk.android.enums.PaymentChannelCode
+import com.ccpp.pgw.sdk.android.enums.PaymentUIResponseCode
 import com.ccpp.pgw.sdk.android.enums.QRTypeCode
 import com.ccpp.pgw.sdk.android.model.LoyaltyPoint
 import com.ccpp.pgw.sdk.android.model.LoyaltyPointReward
@@ -96,7 +97,7 @@ object PaymentApi {
                     val qrUrl = response.data //Display QR image by using url.
                     val responseCode = response.responseCode
                     handleRedirectUrl(qrUrl, responseCode)
-                } else if (response.responseCode == APIResponseCode.TransactionCompleted) {
+                } else if (response.responseCode == APIResponseCode.TransactionCompleted || response.responseCode == PaymentUIResponseCode.TransactionCompleted) {
 
                     //Inquiry payment result by using invoice no.
                     InfoApi.transactionStatus(paymentToken)
@@ -785,14 +786,14 @@ object PaymentApi {
                         } else {
 
                             //Get error response and display error.
-                            showAlertDialog(Constants.apiDoPayment.first, StringHelper.toJson(response))
+                            showAlertDialog(Constants.paymentGooglePay.first, StringHelper.toJson(response))
                         }
                     }
 
                     override fun onFailure(error: Throwable) {
 
                         //Get error response and display error.
-                        showAlertDialog(Constants.apiDoPayment.first, "Error: ${error.message ?: ""}")
+                        showAlertDialog(Constants.paymentGooglePay.first, "Error: ${error.message ?: ""}")
                     }
                 })
             } else {

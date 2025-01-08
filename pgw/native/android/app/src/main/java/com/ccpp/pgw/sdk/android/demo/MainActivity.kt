@@ -105,7 +105,7 @@ class MainActivity : ComponentActivity() {
     companion object {
 
         //Reference: https://developer.2c2p.com/docs/api-payment-token
-        var paymentToken = "kSAops9Zwhos8hSTSeLTUd6Aa8XiO4NdwG3qQOc2vVRNKhg1DrumAZslDhMEYsllJuozWDKYR9TPvo7Kd+BfrW3/vBrOlnFCc5ZKCdRjy17snPTrRPiNDot13dzp7EnF"
+        var paymentToken = "kSAops9Zwhos8hSTSeLTUbjFoxb2c+FMrIxe4u5XbN7ae7uDspmwBvzuUC+QfdbaZkSgnQpWx0AIL+GgoFk6u3O8Lpax/MRVU0aPIc3z39K967+NdiB2WGqqNGykXs6h"
         var activityReference: WeakReference<Activity>? = null
 
         fun showAlertDialog(title: String, message: String) {
@@ -331,7 +331,7 @@ fun WebViewScreen(modifier: Modifier = Modifier, navController: NavHostControlle
 
                             navController.popBackStack()
 
-                            showAlertDialog(Constants.apiUserPreference.first, StringHelper.toJson(response))
+                            showAlertDialog(Constants.apiTransactionStatus.first, StringHelper.toJson(response))
                         } else {
 
                             //Continue do a looping query or long polling to get transaction status until user scan the QR and make payment
