@@ -1,0 +1,33 @@
+{
+  "originHash" : "769d0d9d6adb38d3538935124800dd3716e05fc9d76332795c97473cc5ff460a",
+  "pins" : [
+    {
+      "identity" : "pgwsdk-swiftpackage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/2C2P/PGWSDK-SwiftPackage",
+      "state" : {
+        "revision" : "7d0f9a8573cffd978fc747a4641a6ae06e26dff3",
+        "version" : "4.7.1"
+      }
+    },
+    {
+      "identity" : "pgwsdkhelper-swiftpackage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/2C2P/PGWSDKHELPER-SwiftPackage",
+      "state" : {
+        "revision" : "15308637e1a635e9885d9bb7bc0880d8fb99d3cd",
+        "version" : "4.2.1"
+      }
+    },
+    {
+      "identity" : "pgwuisdk-swiftpackage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/2C2P/PGWUISDK-SwiftPackage.git",
+      "state" : {
+        "revision" : "a0c97603eab2ace80bfabc23de5152b944c24d01",
+        "version" : "4.0.4"
+      }
+    }
+  ],
+  "version" : 3
+}

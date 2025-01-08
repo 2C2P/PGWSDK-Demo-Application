@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>2c2p</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>pgwcom.ccpp.pgw.sdk.ios.demo</string>
+			</array>
+		</dict>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>zalo</string>
+		<string>zalopay</string>
+		<string>zalopay.api.v2</string>
+		<string>scbeasy</string>
+		<string>momo</string>
+		<string>line</string>
+	</array>
+</dict>
+</plist>
