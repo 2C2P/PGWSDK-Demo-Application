@@ -323,13 +323,39 @@ object PaymentApi {
     }
 
     //Reference: https://developer.2c2p.com/docs/sdk-installment-payment-plan
-    fun installmentPaymentPlan() {
+    fun globalInstallmentPaymentPlan() {
 
         //Step 1: Generate payment token.
         val paymentToken = paymentToken
 
         //Step 2: Construct installment payment plan request.
         val paymentCode = PaymentCode("IPP")
+
+        val paymentRequest = CardPaymentBuilder(paymentCode, "4111111111111111").apply {
+            expiryMonth(12)
+            expiryYear(2026)
+            securityCode("123")
+            installmentInterestType(InstallmentInterestTypeCode.Merchant)
+            installmentPeriod(6)
+        }.build()
+
+        //Step 3: Construct transaction request.
+        val transactionResultRequest = TransactionResultRequestBuilder(paymentToken).apply {
+            with(paymentRequest)
+        }.build()
+
+        //Step 4: Execute payment request.
+        proceedTransaction(transactionResultRequest)
+    }
+
+    //Reference: https://developer.2c2p.com/docs/sdk-installment-payment-plan-local
+    fun localInstallmentPaymentPlan() {
+
+        //Step 1: Generate payment token.
+        val paymentToken = paymentToken
+
+        //Step 2: Construct local installment payment plan request.
+        val paymentCode = PaymentCode("LIPP")
 
         val paymentRequest = CardPaymentBuilder(paymentCode, "4111111111111111").apply {
             expiryMonth(12)

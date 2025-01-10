@@ -105,7 +105,7 @@ class MainActivity : ComponentActivity() {
     companion object {
 
         //Reference: https://developer.2c2p.com/docs/api-payment-token
-        var paymentToken = "kSAops9Zwhos8hSTSeLTUbjFoxb2c+FMrIxe4u5XbN7ae7uDspmwBvzuUC+QfdbaZkSgnQpWx0AIL+GgoFk6u3O8Lpax/MRVU0aPIc3z39K967+NdiB2WGqqNGykXs6h"
+        var paymentToken = "kSAops9Zwhos8hSTSeLTUemwcv5NBQ6qxXr9Csi1NAQchXYGUUPlepIB7xId2V036tbSOXWlM4QbGE25hDeRwvfbMSIHO/jQR/O7lIAnPdXw+l2L+SG1AwuIWgZjKLix"
         var activityReference: WeakReference<Activity>? = null
 
         fun showAlertDialog(title: String, message: String) {
@@ -139,7 +139,8 @@ class MainActivity : ComponentActivity() {
             Triple(Constants.paymentCustomerTokenization, Pair((PaymentApi)::customerTokenization, listOf()), Icons.Outlined.ShoppingCart),
             Triple(Constants.paymentCustomerTokenizationWithoutAuthorisation, Pair((PaymentApi)::customerTokenizationWithoutAuthorisation, listOf()), Icons.Outlined.ShoppingCart),
             Triple(Constants.paymentCustomerToken, Pair((PaymentApi)::customerToken, listOf()), Icons.Outlined.ShoppingCart),
-            Triple(Constants.paymentInstallmentPaymentPlan, Pair((PaymentApi)::installmentPaymentPlan, listOf()), Icons.Outlined.ShoppingCart),
+            Triple(Constants.paymentGlobalInstallmentPaymentPlan, Pair((PaymentApi)::globalInstallmentPaymentPlan, listOf()), Icons.Outlined.ShoppingCart),
+            Triple(Constants.paymentLocalInstallmentPaymentPlan, Pair((PaymentApi)::localInstallmentPaymentPlan, listOf()), Icons.Outlined.ShoppingCart),
             Triple(Constants.paymentRecurringPaymentPlan, Pair((PaymentApi)::recurringPaymentPlan, listOf()), Icons.Outlined.ShoppingCart),
             Triple(Constants.paymentThirdPartyPayment, Pair((PaymentApi)::thirdPartyPayment, listOf()), Icons.Outlined.ShoppingCart),
             Triple(Constants.paymentUserAddressForPayment, Pair((PaymentApi)::userAddressForPayment, listOf()), Icons.Outlined.ShoppingCart),
