@@ -261,13 +261,39 @@ import SwiftUICore
     }
 
     //Reference: https://developer.2c2p.com/docs/sdk-installment-payment-plan
-    @objc static func installmentPaymentPlan() {
+    @objc static func globalInstallmentPaymentPlan() {
 
         //Step 1: Generate payment token.
         let paymentToken: String = paymentToken
              
         //Step 2: Construct installment payment plan request.
         let paymentCode: PaymentCode = PaymentCode(channelCode: "IPP")
+                 
+        let paymentRequest: PaymentRequest = CardPaymentBuilder(paymentCode: paymentCode, "4111111111111111")
+                                             .expiryMonth(12)
+                                             .expiryYear(2026)
+                                             .securityCode("123")
+                                             .installmentInterestType(InstallmentInterestTypeCode.Merchant)
+                                             .installmentPeriod(6)
+                                             .build()
+         
+        //Step 3: Construct transaction request.
+        let transactionResultRequest: TransactionResultRequest = TransactionResultRequestBuilder(paymentToken: paymentToken)
+                                                                 .with(paymentRequest)
+                                                                 .build()
+        
+        //Step 4: Execute payment request.
+        proceedTransaction(transactionResultRequest)
+    }
+    
+    //Reference: https://developer.2c2p.com/docs/sdk-installment-payment-plan-local
+    @objc static func localInstallmentPaymentPlan() {
+
+        //Step 1: Generate payment token.
+        let paymentToken: String = paymentToken
+             
+        //Step 2: Construct local installment payment plan request.
+        let paymentCode: PaymentCode = PaymentCode(channelCode: "LIPP")
                  
         let paymentRequest: PaymentRequest = CardPaymentBuilder(paymentCode: paymentCode, "4111111111111111")
                                              .expiryMonth(12)

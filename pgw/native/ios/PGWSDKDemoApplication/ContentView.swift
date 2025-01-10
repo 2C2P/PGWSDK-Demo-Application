@@ -10,7 +10,7 @@ import WebKit
 import PGW
 
 //Reference: https://developer.2c2p.com/docs/api-payment-token
-var paymentToken = "kSAops9Zwhos8hSTSeLTUdsWlqdpyu0lwUuBzuU0Mkb7+nkorYWIBdH0UZ3ERTnD7LRsL5acI3mV9rbB9zGA7+pXTBfC2KEPZBkmugCa15GX2iEwc5B/+m84o/Fabuxo"
+var paymentToken = "kSAops9Zwhos8hSTSeLTUYAajTFNGzaMYz4TNdzxItHe7yVdY7XfZtllOJDDV7PgzU6DIhfjAggfeZ4KqxOsWAwLY57VYXf/L//PK/avE/tFIFgDvJF8snmaHDbOVawr"
 
 struct ListItem: Identifiable {
     
@@ -97,7 +97,8 @@ struct ContentView: View {
         ListItem(Constants.paymentCustomerTokenization, ("PaymentApi", "customerTokenization", [])),
         ListItem(Constants.paymentCustomerTokenizationWithoutAuthorisation, ("PaymentApi", "customerTokenizationWithoutAuthorisation", [])),
         ListItem(Constants.paymentCustomerToken, ("PaymentApi", "customerToken", [])),
-        ListItem(Constants.paymentInstallmentPaymentPlan, ("PaymentApi", "installmentPaymentPlan", [])),
+        ListItem(Constants.paymentGlobalInstallmentPaymentPlan, ("PaymentApi", "globalInstallmentPaymentPlan", [])),
+        ListItem(Constants.paymentLocalInstallmentPaymentPlan, ("PaymentApi", "localInstallmentPaymentPlan", [])),
         ListItem(Constants.paymentRecurringPaymentPlan, ("PaymentApi", "recurringPaymentPlan", [])),
         ListItem(Constants.paymentThirdPartyPayment, ("PaymentApi", "thirdPartyPayment", [])),
         ListItem(Constants.paymentUserAddressForPayment, ("PaymentApi", "userAddressForPayment", [])),
