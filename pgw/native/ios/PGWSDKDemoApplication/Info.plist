@@ -26,5 +26,7 @@
 		<string>momo</string>
 		<string>line</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>This app needs access to your photo library to save QR code images.</string>
 </dict>
 </plist>
