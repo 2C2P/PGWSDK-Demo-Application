@@ -1,0 +1,86 @@
+{
+  "expo": {
+    "name": "pgw-sdk-demo-application",
+    "slug": "pgw-sdk-demo-application",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "bundleIdentifier": "com.ccpp.pgw.sdk.reactnative.demo",
+      "infoPlist": {
+        "LSApplicationQueriesSchemes": [
+          "zalo",
+          "zalopay",
+          "zalopay.api.v2",
+          "scbeasy",
+          "momo",
+          "line"
+        ],
+        "CADisableMinimumFrameDurationOnPhone": true,
+        "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to save QR code images.",
+        "CFBundleURLTypes": [
+          {
+            "CFBundleTypeRole": "Editor",
+            "CFBundleURLName": "2c2p",
+            "CFBundleURLSchemes": [
+              "pgwcom.ccpp.pgw.sdk.reactnative.demo"
+            ]
+          }
+        ]
+      },
+      "entitlements": {
+        "com.apple.developer.in-app-payments": [
+          "merchant.sg.702702000000000"
+        ]
+      },
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.ccpp.pgw.sdk.reactnative.demo"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "kotlinVersion": "1.9.25",
+            "enableProguardInReleaseBuilds": true,
+            "extraProguardRules": "#React Native\n-keep class com.facebook.react.** { *; }\n-keepnames class com.facebook.react.* { *; }\n-keepnames interface com.facebook.react.* { *; }\n\n#PGWReactNative\n-keep class com.ccpp.pgw.sdk.reactnative.** { *; }\n-keepnames class com.ccpp.pgw.sdk.reactnative.* { *; }\n-keepnames interface com.ccpp.pgw.sdk.reactnative.* { *; }\n\n#React Native Plugins\n-keep class com.swmansion.rnscreens.** { *; }\n-keepnames class com.swmansion.rnscreens.* { *; }\n-keepnames interface com.swmansion.rnscreens.* { *; }"
+          },
+          "ios": {}
+        }
+      ],
+      "./plugins/withIOSURLHandler",
+      "./plugins/withAndroidABIFilters"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
