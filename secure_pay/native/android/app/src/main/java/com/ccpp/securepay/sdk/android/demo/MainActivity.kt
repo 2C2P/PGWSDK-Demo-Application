@@ -101,7 +101,7 @@ fun CreditCardForm(sdk: SecurePaySDK) {
             onValueChange = { newValue ->
                 cardNo = newValue.take(19)
             },
-            label = { Text("Card Number") },
+            label = { Text("Card No") },
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             singleLine = true
@@ -168,7 +168,7 @@ fun CreditCardForm(sdk: SecurePaySDK) {
                 onValueChange = { newValue ->
                     securityCode = newValue.take(4)
                 },
-                label = { Text("CVV") },
+                label = { Text("Security Code") },
                 modifier = Modifier.weight(1f).padding(end = 8.dp),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 singleLine = true
