@@ -1,0 +1,15 @@
+{
+  "originHash" : "5ca26ffb6769b1cbc4f8b7d9d5e998385ffacca634361b38ef90f66ffc8fef95",
+  "pins" : [
+    {
+      "identity" : "securepaysdk-swiftpackage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/2C2P/SecurePaySDK-SwiftPackage.git",
+      "state" : {
+        "revision" : "07e6c7c29615607d6a91390735f0c1425d1d0e24",
+        "version" : "2.1.0"
+      }
+    }
+  ],
+  "version" : 3
+}
