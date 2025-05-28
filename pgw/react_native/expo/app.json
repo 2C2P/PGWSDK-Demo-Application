@@ -47,7 +47,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.ccpp.pgw.sdk.reactnative.demo"
+      "package": "com.ccpp.pgw.sdk.reactnative.demo",
+      "edgeToEdgeEnabled": true
     },
     "web": {
       "bundler": "metro",
@@ -69,14 +70,13 @@
         "expo-build-properties",
         {
           "android": {
-            "kotlinVersion": "1.9.25",
             "enableProguardInReleaseBuilds": true,
             "extraProguardRules": "#React Native\n-keep class com.facebook.react.** { *; }\n-keepnames class com.facebook.react.* { *; }\n-keepnames interface com.facebook.react.* { *; }\n\n#PGWReactNative\n-keep class com.ccpp.pgw.sdk.reactnative.** { *; }\n-keepnames class com.ccpp.pgw.sdk.reactnative.* { *; }\n-keepnames interface com.ccpp.pgw.sdk.reactnative.* { *; }\n\n#React Native Plugins\n-keep class com.swmansion.rnscreens.** { *; }\n-keepnames class com.swmansion.rnscreens.* { *; }\n-keepnames interface com.swmansion.rnscreens.* { *; }"
           },
           "ios": {}
         }
       ],
-      "./plugins/withIOSURLHandler",
+      "./plugins/withIOSURLHandlerSwift",
       "./plugins/withAndroidABIFilters"
     ],
     "experiments": {

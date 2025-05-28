@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import * as InfoApi from './apis/infoAPI';
 import CustomDialog from './components/dialog';
 
-export let paymentToken: string = 'kSAops9Zwhos8hSTSeLTUYaElfqs/c0w7o0EzksXzc3sm2O/bq4Ukeis59qPyzcayTbVIv50q1wJxPTX1zsTW9AMczgmFmxu8FlQUc5eW+pb2rHkB+907P4aHuzgHwNC';
+export let paymentToken: string = 'kSAops9Zwhos8hSTSeLTUf64wv6nSLxMW7HbmQmwkfRKZFErYNeQgTjHM9+jciexZmDJKU8X50z1GFrf+iglMVkLKgBkMKFDbwdchgmVGzs=';
 export const updatePaymentToken = (newValue: string) => {
   paymentToken = newValue;
 };
