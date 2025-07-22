@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -6,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.ccpp.softpos.sdk.android.demo"
-    compileSdk = 35
+    compileSdk = 36
 
     signingConfigs {
 
@@ -22,7 +24,7 @@ android {
     defaultConfig {
         applicationId = "com.ccpp.softpos.sdk.android.demo"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
         signingConfig = signingConfigs.getByName("release")
@@ -43,8 +45,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
+    kotlin {
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_11
+        }
     }
     buildFeatures {
         compose = true
@@ -90,7 +94,6 @@ dependencies {
     implementation(libs.jackson.databind)
 
     // 2C2P SoftPOS SDK
-    // Important: SoftPOS SDK v1.0.0, support compose BOM version up to "2025.04.00".
-    // implementation(libs.softpos.sdk) // Production
-    implementation(libs.softpos.sdk.sandbox)
+//     implementation(libs.softpos.sdk) // Production
+    implementation(libs.softpos.sdk.sandbox) // SandBox
 }

@@ -1,18 +1,17 @@
 [versions]
-agp = "8.10.1"
-kotlin = "2.0.21"
+agp = "8.11.1"
+kotlin = "2.2.0"
 coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.9.1"
+lifecycleRuntimeKtx = "2.9.2"
 activityCompose = "1.10.1"
-composeBom = "2025.04.00"
-softposSdk = "1.0.0"
-softposSdkSandbox = "1.0.0"
-jacksonDatabind = "2.17.2"
-navigationRuntimeKtx = "2.9.0"
-navigationCompose = "2.9.0"
+composeBom = "2025.07.00"
+softposSdk = "1.0.1"
+jacksonDatabind = "2.19.2"
+navigationRuntimeKtx = "2.9.2"
+navigationCompose = "2.9.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -32,7 +31,7 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 softpos-sdk = { module = "com.2c2p:softpos-sdk", version.ref = "softposSdk" }
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
-softpos-sdk-sandbox = { module = "com.2c2p:softpos-sdk-sandbox", version.ref = "softposSdkSandbox" }
+softpos-sdk-sandbox = { module = "com.2c2p:softpos-sdk-sandbox", version.ref = "softposSdk" }
 jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jacksonDatabind" }
 
 [plugins]
