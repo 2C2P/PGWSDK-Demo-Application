@@ -11,7 +11,10 @@ import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,8 +24,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -41,6 +47,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -56,6 +63,7 @@ import com.ccpp.softpos.sdk.android.callback.PaymentResultResponseCallback
 import com.ccpp.softpos.sdk.android.core.SoftPOSSDK
 import com.ccpp.softpos.sdk.android.demo.helper.StringHelper
 import com.ccpp.softpos.sdk.android.demo.ui.theme.SoftPOSDemoApplicationTheme
+import com.ccpp.softpos.sdk.android.enums.PaymentMethodType
 import com.ccpp.softpos.sdk.android.enums.SoftPOSType
 import com.ccpp.softpos.sdk.android.enums.TransactionType
 import com.ccpp.softpos.sdk.android.helper.WebViewClientHelper
@@ -129,8 +137,8 @@ fun HomeLayout(
 ) {
     val scrollState = rememberScrollState()
     val dialogState = remember { mutableStateOf(Pair(false, "")) }
-    val paymentTokenInputState = remember { mutableStateOf("kSAops9Zwhos8hSTSeLTUa3oWFK0CMFF4dCBjaoIq9PXMZQm9Pp7rIdV4XwKROwmp/6kM2ZPuVM/43Dco+6anA4msCzLWN/GA8gCtU/FZCmr8ld21nKE2ZDLu4TZe/1fLU4WSukMTD1EDwYnF30WFg==") }
-    val profileIdInputState = remember { mutableStateOf("prof_01J3M8GR9RS1KFH03Z79JHCZ74") }
+    val paymentTokenInputState = remember { mutableStateOf("kSAops9Zwhos8hSTSeLTURScbZHpjo2K75yhEuh3CrQ6B6VjqoRuQCIwOZqxq/v1+yFMtYprqgL8PA/iMO98cAH1f810z4GueCF5ln7jMCDPM5b9joqKu0ee07lkwYOxZZu8dh/MVcStVHtmwx4LkQ==") }
+    val profileIdInputState = remember { mutableStateOf("prof_01JV6H6315VQAX0GY1RNPC5737") }
     val transactionIdInputState = remember { mutableStateOf("tran_01J8S46SM0MVY7B5X1RHKGNT0R") }
     val urlInputState = remember { mutableStateOf("https://pgw-ui.2c2p.com/payment/4.1/#/token/kSAops9Zwhos8hSTSeLTUTNLGXbB1hsZ3g5KCClKzNUQqwNPeW2ylqDOnm9Ftkga%2bAdFj1XnP9bUXgwJdcz5Zmt%2fwE5qxSZKnwXARPFjttWsG9YocSNZKKC4Eaf8OX3%2f") }
 
@@ -193,17 +201,30 @@ fun HomeLayout(
             }
         }
         Spacer(modifier = Modifier.height(10.dp))
+        var selectedMethods by remember { mutableStateOf(enumValues<PaymentMethodType>().toList()) }
+        PaymentMethods(
+            onItemSelected = {
+                selectedMethods = it
+            }
+        )
+        Spacer(modifier = Modifier.height(10.dp))
         FilledTonalButton(onClick = {
-            pay(activity, paymentTokenInputState.value, profileIdInputState.value, transactionType.value, object : PaymentResultResponseCallback<SoftPOSPaymentResultResponse> {
+            pay(
+                activity,
+                paymentTokenInputState.value,
+                profileIdInputState.value,
+                transactionType.value,
+                selectedMethods,
+                object : PaymentResultResponseCallback<SoftPOSPaymentResultResponse> {
 
-                override fun onResponse(response: SoftPOSPaymentResultResponse) {
-                    dialogState.value = Pair(true, StringHelper.toJson(response))
-                }
+                    override fun onResponse(response: SoftPOSPaymentResultResponse) {
+                        dialogState.value = Pair(true, StringHelper.toJson(response))
+                    }
 
-                override fun onFailure(error: Throwable) {
-                    dialogState.value = Pair(true, error.message ?: "")
-                }
-            })
+                    override fun onFailure(error: Throwable) {
+                        dialogState.value = Pair(true, error.message ?: "")
+                    }
+                })
         }) {
             Text("Scan & Pay")
         }
@@ -236,6 +257,36 @@ fun HomeLayout(
             })
         }) {
             Text("Void Payment")
+        }
+        Spacer(modifier = Modifier.height(50.dp))
+        Text(
+            "Query:",
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Bold
+        )
+        OutlinedTextField(
+            value = transactionIdInputState.value,
+            onValueChange = { transactionIdInputState.value = it },
+            label = { Text("Transaction Id: ") }
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        FilledTonalButton(onClick = {
+            val paymentRequest = PaymentBuilder(activity, paymentTokenInputState.value)
+                .transactionId(transactionIdInputState.value)
+                .build()
+
+            SoftPOSSDK.getInstance().query(paymentRequest, object : PaymentResultResponseCallback<SoftPOSPaymentResultResponse> {
+
+                override fun onResponse(response: SoftPOSPaymentResultResponse) {
+                    dialogState.value = Pair(true, StringHelper.toJson(response))
+                }
+
+                override fun onFailure(error: Throwable) {
+                    dialogState.value = Pair(true, error.message ?: "")
+                }
+            })
+        }) {
+            Text("Query transaction")
         }
         Spacer(modifier = Modifier.height(50.dp))
         Text(
@@ -318,18 +369,25 @@ fun WebViewScreen(
                                 val paymentToken = WebViewClientHelper.paymentToken(overrideUrl) ?: ""
                                 val paymentResultUrl = WebViewClientHelper.paymentResultUrl(webPaymentUrl) ?: ""
 
-                                pay(activity, paymentToken, profileId ?: "", transactionType.value, object : PaymentResultResponseCallback<SoftPOSPaymentResultResponse> {
+                                pay(
+                                    activity,
+                                    paymentToken,
+                                    profileId ?: "",
+                                    transactionType.value,
+                                    enumValues<PaymentMethodType>().toList(),
+                                    object : PaymentResultResponseCallback<SoftPOSPaymentResultResponse> {
 
-                                    override fun onResponse(response: SoftPOSPaymentResultResponse) {
-                                        dialogState.value = Pair(true, StringHelper.toJson(response))
-                                        view.loadUrl(paymentResultUrl)
-                                    }
+                                        override fun onResponse(response: SoftPOSPaymentResultResponse) {
+                                            dialogState.value =
+                                                Pair(true, StringHelper.toJson(response))
+                                            view.loadUrl(paymentResultUrl)
+                                        }
 
-                                    override fun onFailure(error: Throwable) {
-                                        dialogState.value = Pair(true, error.message ?: "")
-                                        view.loadUrl(paymentResultUrl)
-                                    }
-                                })
+                                        override fun onFailure(error: Throwable) {
+                                            dialogState.value = Pair(true, error.message ?: "")
+                                            view.loadUrl(paymentResultUrl)
+                                        }
+                                    })
                                 return true
                             } else {
                                 return super.shouldOverrideUrlLoading(view, request)
@@ -371,11 +429,79 @@ fun AlertDialog(state: MutableState<Pair<Boolean, String>>) {
     }
 }
 
-fun pay(activity: Activity, paymentToken: String, profileId: String, transactionType: TransactionType, response: PaymentResultResponseCallback<SoftPOSPaymentResultResponse>) {
+@SuppressLint("MutableCollectionMutableState")
+@Composable
+fun PaymentMethods(
+    onItemSelected: (List<PaymentMethodType>) -> Unit
+) {
+    var expanded by remember { mutableStateOf(false) }
+    var selectedItems by remember { mutableStateOf(enumValues<PaymentMethodType>().toMutableList()) }
+
+    Column(modifier = Modifier.fillMaxWidth()) {
+        OutlinedTextField(
+            value = selectedItems.joinToString { it.name },
+            onValueChange = { },
+            modifier = Modifier.fillMaxWidth(),
+            label = { Text("Payment Methods:") },
+            trailingIcon = {
+                Icon(
+                    Icons.Filled.ArrowDropDown,
+                    "Arrow",
+                    Modifier.clickable { expanded = !expanded }
+                )
+            },
+            readOnly = true
+        )
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            PaymentMethodType.entries.forEach { item ->
+                val selected = remember { mutableStateOf(item in selectedItems) }
+                DropdownMenuItem(
+                    text = {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(text = item.name, fontSize = 16.sp)
+                            Checkbox(
+                                checked = selected.value,
+                                onCheckedChange = { checked ->
+                                    if (checked) {
+                                        selectedItems.add(item)
+                                    } else {
+                                        selectedItems.remove(item)
+                                    }
+                                    selected.value = checked
+                                    onItemSelected(selectedItems.distinct())
+                                }
+                            )
+                        }
+                    },
+                    onClick = {
+                        if (item in selectedItems) {
+                            selectedItems.remove(item)
+                        } else {
+                            selectedItems.add(item)
+                        }
+                        selected.value = !selected.value
+                        onItemSelected(selectedItems.distinct())
+                    }
+                )
+            }
+        }
+    }
+}
+
+fun pay(activity: Activity, paymentToken: String, profileId: String, transactionType: TransactionType, paymentMethods: List<PaymentMethodType>, response: PaymentResultResponseCallback<SoftPOSPaymentResultResponse>) {
+
     val paymentRequest = PaymentBuilder(activity, paymentToken)
         .transactionType(transactionType)
         .profileId(profileId)
         .posType(SoftPOSType.Mobile)
+        .paymentMethods(paymentMethods)
         .build()
 
     SoftPOSSDK.getInstance().pay(paymentRequest, response)
