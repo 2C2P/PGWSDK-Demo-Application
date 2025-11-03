@@ -188,7 +188,7 @@ fun PaymentScreen(
 ) {
     var amount by remember { mutableStateOf(value = "0.01") }
     var posMessageId by remember { mutableStateOf(value = "POS_PAYMENT_${System.currentTimeMillis()}") }
-    var originalTransactionId by remember { mutableStateOf(value = "M1985190949813792770") }
+    var originalTransactionId by remember { mutableStateOf(value = "") }
     var result by remember { mutableStateOf(value = "") }
     val transactionLauncher = rememberLauncherForActivityResult(
         contract = msaPosApi.transactionContract()
@@ -236,6 +236,18 @@ fun PaymentScreen(
         },
         label = {
             Text(text = "POS Message ID: ")
+        }
+    )
+    TextField(
+        value = originalTransactionId,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 5.dp),
+        onValueChange = {
+            originalTransactionId = it
+        },
+        label = {
+            Text(text = "Transaction ID: ")
         }
     )
     Button(
